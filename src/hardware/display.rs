@@ -242,10 +242,8 @@ impl Hardware for Display {
                         println!("[@{:012X}] DISP|{}: {}", time, self.name, self.state_1d);
                     }
                 }
-            } else if print_state {
-                if time > 0 {
-                    println!("[@{:012X}] DISP|{}: {}", time, self.name, self.decode());
-                }
+            } else if print_state && time > 0 {
+                println!("[@{:012X}] DISP|{}: {}", time, self.name, self.decode());
             }
         }  
 
