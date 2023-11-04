@@ -110,12 +110,8 @@ impl Net {
             PinState::DriveAnalog(v) => state_new = NetState::Analog(v),      
         }
 
-        if self.state != state_new {
-            if CLI.net_all | (CLI.net_undef & self.state.eq(&NetState::Undefined)) {
-                if time > 0 {
-                    println!("[@{:012X}] NET|{}: {:?} => {:?}", time, self.name, self.state, state_new)
-                };
-            }
+        if self.state != state_new && CLI.net_all | (CLI.net_undef & self.state.eq(&NetState::Undefined)) && time > 0 {
+            println!("[@{:012X}] NET|{}: {:?} => {:?}", time, self.name, self.state, state_new)
         }
         self.state = state_new;
 
