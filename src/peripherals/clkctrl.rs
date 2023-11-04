@@ -32,12 +32,11 @@ impl Clkctrl {
     }
 
     fn update_clock(&mut self) {
-        let period;
-        match self.regs[CLKCTRL_MCLKCTRLA] & 0x3 {
-            0 => period = 50,
-            1 => period = 30518,
+        let period = match self.regs[CLKCTRL_MCLKCTRLA] & 0x3 {
+            0 => 50,
+            1 => 30518,
             _ => return
-        }
+        };
 
         if self.regs[CLKCTRL_MCLKCTRLB] & 0x1 == 0 {
             self.clock_period = period;
