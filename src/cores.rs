@@ -1202,7 +1202,7 @@ impl Core {
 
         // Wait for multi-cycle instructions to complete
         if self.busy > 0 {
-            self.busy = self.busy - 1;
+            self.busy -= 1;
             if self.debug {
                 println!("[0x{:04X}] ...", self.pc<<1);
             }
