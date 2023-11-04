@@ -154,13 +154,12 @@ impl Display {
 
     fn decode_1d(&self) -> String {
         let on_first = (self.state.front().unwrap().0 & 0x7F) != 0x7F;
-        let on;
-        if on_first {
+        let on = if on_first {
             //LHS first
-            on = self.state.front().unwrap();
+            self.state.front().unwrap()
         } else {
-            on = self.state.get(1).unwrap();
-        }
+            self.state.get(1).unwrap()
+        };
 
         let mut disp = String::new();
         disp.push_str(&Self::seg_to_char(on.0));
@@ -176,12 +175,11 @@ impl Display {
         let time2 = self.state.get(2).unwrap().1;
 
         let period = time0-time2;
-        let inton;
-        if on_first {
-            inton = time1-time2; 
+        let inton = if on_first {
+            time1-time2
         } else {
-            inton = time0-time1; 
-        }
+            time0-time1 
+        };
 
         let freq = 1e9/(period as f64);
         let duty = 100.0*(inton as f64)/(period as f64);
