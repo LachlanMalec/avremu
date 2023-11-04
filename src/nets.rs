@@ -102,13 +102,12 @@ impl Net {
             //println!("New dominant pinstate is {:?}", dps);
         }
 
-        let state_new;
-        match dps {
-            PinState::Open | PinState::UndefinedWeak |  PinState::UndefinedStrong => state_new = NetState::Undefined,
-            PinState::WeakPullDown | PinState::DriveL => state_new = NetState::Low,
-            PinState::WeakPullUp | PinState::DriveH => state_new = NetState::High,
-            PinState::DriveAnalog(v) => state_new = NetState::Analog(v),      
-        }
+        let state_new = match dps {
+            PinState::Open | PinState::UndefinedWeak |  PinState::UndefinedStrong => NetState::Undefined,
+            PinState::WeakPullDown | PinState::DriveL => NetState::Low,
+            PinState::WeakPullUp | PinState::DriveH => NetState::High,
+            PinState::DriveAnalog(v) => NetState::Analog(v),      
+        };
 
         if self.state != state_new && CLI.net_all | (CLI.net_undef & self.state.eq(&NetState::Undefined)) && time > 0 {
             println!("[@{:012X}] NET|{}: {:?} => {:?}", time, self.name, self.state, state_new)
