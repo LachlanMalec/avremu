@@ -75,9 +75,8 @@ impl MemoryMapped for Clkctrl {
     }
 
     fn read(&mut self, address: usize) -> (u8, usize) {
-        match address {
-            CLKCTRL_MCLKSTATUS..=CLKCTRL_XOSC32KCTRLA => println!("[WARNING] CLKCTRL MCLKSTATUS..XOSC32KXTRLA registers are not implemented in this emulator. Reads will return 0."),
-            _ => {}
+        if let CLKCTRL_MCLKSTATUS..=CLKCTRL_XOSC32KCTRLA = address {
+            println!("[WARNING] CLKCTRL MCLKSTATUS..XOSC32KXTRLA registers are not implemented in this emulator. Reads will return 0.")
         }
         (self.regs[address], 0)
     }
