@@ -159,11 +159,11 @@ impl Hardware for SinkUART {
 
     }
 
-    fn event(&mut self, time: u64, event: &String) {
+    fn event(&mut self, time: u64, event: &str) {
         if event.eq_ignore_ascii_case("flush") {
             self.out_close();
         } else {
-            let byte = u8::from_str_radix(event.as_str(), 16).unwrap();
+            let byte = u8::from_str_radix(event, 16).unwrap();
             self.tx(time, byte);
             if time > 0 {
                 println!("[@{:012X}] UART|{}: Tx 0x{:02X}", time, self.name, byte);

@@ -38,7 +38,7 @@ impl Hardware for Pot {
         
     }
 
-    fn event(&mut self, time: u64, event: &String) {
+    fn event(&mut self, time: u64, event: &str) {
         let pos: f32 = event.parse().unwrap();
         self.set(time, pos);
     }

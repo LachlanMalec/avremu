@@ -21,7 +21,7 @@ impl Stdio {
         Stdio {
             name,
             out: Vec::new(),
-            outfile, 
+            outfile,
             input: VecDeque::new()
         }
     }
@@ -63,7 +63,7 @@ impl Hardware for Stdio {
 
     }
 
-    fn event(&mut self, _time: u64, _event: &String) {
+    fn event(&mut self, _time: u64, _event: &str) {
         //TODO: Handle keystrokes
     }
 }

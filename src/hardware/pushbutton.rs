@@ -8,7 +8,7 @@ use crate::nets::{PinState, Net};
 #[derive(Debug)]
 #[derive(PartialEq)]
 enum PushbuttonState {
-    Released, 
+    Released,
     Pressed
 }
 
@@ -22,7 +22,7 @@ pub struct Pushbutton {
 
 impl Pushbutton {
     pub fn new(name: String, active_high: bool, net: Rc<RefCell<Net>>) -> Self {
-        let pb = Pushbutton { 
+        let pb = Pushbutton {
             name,
             pin: Rc::new(RefCell::new(PinState::Open)),
             //net,
@@ -39,7 +39,7 @@ impl Pushbutton {
                 println!("[@{:012X}] PB|{}: {}", time, self.name, "Pressed");
             }
         }
-        
+
         self.state = PushbuttonState::Pressed;
         if self.active_high {
             *self.pin.borrow_mut() = PinState::DriveH;
@@ -54,7 +54,7 @@ impl Pushbutton {
                 println!("[@{:012X}] PB|{}: {}", time, self.name, "Released");
             }
         }
-        
+
         self.state = PushbuttonState::Released;
         *self.pin.borrow_mut() = PinState::Open;
     }
@@ -65,7 +65,7 @@ impl Hardware for Pushbutton {
         //TODO: Add code for bounce
     }
 
-    fn event(&mut self, time: u64, event: &String) {
+    fn event(&mut self, time: u64, event: &str) {
         if event.eq("PRESS") {
             self.press(time);
         } else if event.eq("RELEASE") {
