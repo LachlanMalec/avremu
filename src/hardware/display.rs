@@ -139,12 +139,11 @@ impl Display {
         let time2 = self.state.get(2).unwrap().1;
 
         let period = time0-time2;
-        let inton;
-        if lhs_first {
-            inton = time1-time2; 
+        let inton = if lhs_first {
+            time1-time2 
         } else {
-            inton = time0-time1; 
-        }
+            time0-time1 
+        };
 
         let freq = 1e9/(period as f64);
         let duty = 100.0*(inton as f64)/(period as f64);
