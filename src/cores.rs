@@ -1549,7 +1549,7 @@ impl Instruction {
             "1001_001r_rrrr_1111" => Instruction::PUSH { Rr: r as u8 },
             "1101_kkkk_kkkk_kkkk" => Instruction::RCALL { 
                                         offset: {
-                                            let mut k = k as u16;
+                                            let mut k = k;
                                             let kb = k.view_bits_mut::<Lsb0>();
                                             kb.set(12, kb[11]);
                                             kb.set(13, kb[11]);
@@ -1562,7 +1562,7 @@ impl Instruction {
             "1001_0101_0001_1000" => Instruction::RETI,
             "1100_kkkk_kkkk_kkkk" => Instruction::RJMP { 
                                         offset: {
-                                            let mut k = k as u16;
+                                            let mut k = k;
                                             let kb = k.view_bits_mut::<Lsb0>();
                                             kb.set(12, kb[11]);
                                             kb.set(13, kb[11]);
