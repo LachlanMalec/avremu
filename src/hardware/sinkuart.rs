@@ -70,7 +70,7 @@ impl SinkUART {
     }
 
     pub fn out_close(&self) {
-        fs::write(&self.outfile, &self.out).expect(&format!("Unable to write uart out to {}.", self.outfile));
+        fs::write(&self.outfile, &self.out).unwrap_or_else(|_| panic!("Unable to write uart out to {}.", self.outfile));
     }
 
     fn tx(&mut self, time: u64, byte: u8) {
