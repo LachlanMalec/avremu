@@ -1222,7 +1222,7 @@ impl Core {
                     let mut ds = self.ds.borrow_mut();
                     ds.write(usize::from(self.sp), (self.pc) as u8); self.sp -= 1;
                     ds.write(usize::from(self.sp), ((self.pc)>>8) as u8); self.sp -= 1;
-                    self.pc = address as u16;
+                    self.pc = address;
                     self.busy = 4;  // 2 cycles to to push PC + 3 cycles for jmp to vector
                     return true;
                 }
