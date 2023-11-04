@@ -1218,16 +1218,13 @@ impl Core {
             // Interrupts enabled
             if self.get_sreg_bit(BitSREG::I) {
                 let vector = self.interrupt_handler.borrow_mut().service_pending();
-                match vector {
-                    Some(address) => {
-                        let mut ds = self.ds.borrow_mut();
-                        ds.write(usize::from(self.sp), (self.pc) as u8); self.sp -= 1;
-                        ds.write(usize::from(self.sp), ((self.pc)>>8) as u8); self.sp -= 1;
-                        self.pc = address as u16;
-                        self.busy = 4;  // 2 cycles to to push PC + 3 cycles for jmp to vector
-                        return true;
-                    }
-                    None => {}
+                if let Some(address) = vector {
+                    let mut ds = self.ds.borrow_mut();
+                    ds.write(usize::from(self.sp), (self.pc) as u8); self.sp -= 1;
+                    ds.write(usize::from(self.sp), ((self.pc)>>8) as u8); self.sp -= 1;
+                    self.pc = address as u16;
+                    self.busy = 4;  // 2 cycles to to push PC + 3 cycles for jmp to vector
+                    return true;
                 }
             }
         }
