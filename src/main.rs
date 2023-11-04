@@ -79,7 +79,7 @@ fn main() {
 
     let events = match &CLI.events {
         Some(filename) => {
-            let events = Event::from_file(&filename);
+            let events = Event::from_file(filename);
             println!("[EVENTS] {}: Parsed {} events.", &filename, events.len());
             events
         },
