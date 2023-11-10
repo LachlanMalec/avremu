@@ -50,12 +50,11 @@ impl SinkPwm {
 
 impl Hardware for SinkPwm {
     fn update(&mut self, time: u64) {
-        let new_state: SinkPwmState;
-        match self.net.borrow().state {
-            NetState::High => new_state = SinkPwmState::High,
-            NetState::Low => new_state = SinkPwmState::Low,
-            _ => new_state = SinkPwmState::Undefined
-        }
+        let new_state: SinkPwmState = match self.net.borrow().state {
+            NetState::High => SinkPwmState::High,
+            NetState::Low => SinkPwmState::Low,
+            _ => SinkPwmState::Undefined
+        };
         if !self.state.eq(&new_state) {
             self.t_last = time;
             self.is_dc = false;
